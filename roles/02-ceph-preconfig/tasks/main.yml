@@ -45,7 +45,9 @@
     state: present
     key: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
 
-
+- name: run ssh-keyscan to add keys to known_hosts
+  shell: "ssh-keyscan {{ item }} >> ~/.ssh/known_hosts"
+  with_items: "{{groups['all']}}"
 
 - name: config /etc/ntp.conf
   lineinfile:
@@ -54,6 +56,8 @@
     state: present
   when: ansible_hostname != "{{ item }}" or ansible_hostname == "{{ item }}"
   with_items: "{{groups['admin']}}"
+
+
 
 - name: config /etc/ntp.conf
   copy:
