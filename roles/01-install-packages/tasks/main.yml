@@ -5,7 +5,7 @@
     line: "{{ hostvars[item].ansible_default_ipv4.address }} {{item}}"
     state: present
   when: ansible_hostname != "{{ item }}" or ansible_hostname == "{{ item }}"
-  with_items: "{{groups['cluster']}}"
+  with_items: "{{groups['all']}}"
 
 - name: add Ceph yum repository
   copy:
