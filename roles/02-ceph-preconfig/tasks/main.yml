@@ -39,15 +39,19 @@
   args:
     creates: /root/.ssh/id_rsa
 
-- name: Set authorized key taken from file
-  authorized_key:
-    user: root
-    state: present
-    key: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
-  with_items: "{{groups['all']}}"
+#- name: Set authorized key taken from file
+#  authorized_key:
+#    remote_user: root
+#    state: present
+#    key: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
+#  with_items: "{{groups['all']}}"
 
-- name: run ssh-keyscan to add keys to known_hosts
-  shell: "ssh-keyscan {{ item }} >> ~/.ssh/known_hosts"
+#- name: run ssh-keyscan to add keys to known_hosts
+#  shell: "ssh-keyscan {{ item }} >> ~/.ssh/known_hosts"
+#  with_items: "{{groups['all']}}"
+
+- name: run ssh-copy-id
+  shell: "ssh-copy-id root@{{ item }} "
   with_items: "{{groups['all']}}"
 
 - name: config /etc/ntp.conf
