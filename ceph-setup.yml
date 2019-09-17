@@ -3,3 +3,7 @@
   hosts: all
   roles:
     - 01-install-packages
+    - 02-ceph-preconfig
+
+
+

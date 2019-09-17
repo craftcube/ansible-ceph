@@ -15,6 +15,6 @@
 
 - name: Update repository cache and install ceph-deploy package
   yum:
-    name: ceph-deploy
+    name: ceph-deploy ceph ceph-radosgw cephfs ceph-fuse ntp ntpdate ntp-doc  libicu  fuse-libs libaio
     update_cache: yes
     state: latest
