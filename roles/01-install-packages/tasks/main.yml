@@ -1,0 +1,20 @@
+- name: copy /etc/hosts
+  lineinfile:
+    path: /etc/hosts
+    regexp: '.*{{ item }}$'
+    line: "{{ hostvars[item].ansible_default_ipv4.address }} {{item}}"
+    state: present
+  when: ansible_hostname != "{{ item }}" or ansible_hostname == "{{ item }}"
+  with_items: "{{groups['cluster']}}"
+
+- name: add Ceph yum repository
+  copy:
+    src: ceph.repo
+    dest: /etc/yum.repos.d/ceph.repo
+    mode: 0644
+
+- name: Update repository cache and install ceph-deploy package
+  yum:
+    name: ceph-deploy
+    update_cache: yes
+    state: latest
