@@ -51,10 +51,10 @@
 #    enabled: yes
 #    name: ceph-mon@{{inventory_hostname}}
 
-- name: Start ceph-mon service
-  systemd:
-    state: restarted
-    name: ceph-mon@{{inventory_hostname}}
+#- name: Start ceph-mon service
+#  systemd:
+#    state: restarted
+#    name: ceph-mon@{{inventory_hostname}}
 
 # 17、查看集群情况
 #- name: check status with ceph -s
