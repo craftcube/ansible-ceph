@@ -23,7 +23,13 @@
 
 #10、创建一个默认的数据目录
 - name: make a data dir
-  shell: mkdir /var/lib/ceph/mon/ceph-node01
+  file:
+    path: /var/lib/ceph/mon/ceph-{{inventory_hostname}}
+    owner: root
+    group: root
+    mode: '0644'
+#  shell: mkdir /var/lib/ceph/mon/ceph-node01
+
 
 #    11、修改ceph.mon.keyring属主和属组为ceph
 #    chown ceph.ceph /tmp/ceph.mon.keyring
