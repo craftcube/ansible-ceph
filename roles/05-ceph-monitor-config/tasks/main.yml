@@ -18,8 +18,8 @@
   shell: ceph-authtool /tmp/ceph.mon.keyring --import-keyring /var/lib/ceph/bootstrap-osd/ceph.keyring
 
 #9、使用主机名、主机IP地址(ES)和FSID生成monmap。把它保存成/tmp/monmap
-- name: generate monmap
-  shell: monmaptool --create --add {{inventory_hostname}} {{ansible_all_ipv4_addresses}} --fsid 62d31c7d-780f-40c3-9180-dbe1f7c5d508 /tmp/monmap
+#- name: generate monmap
+#  shell: monmaptool --create --add {{inventory_hostname}} {{ansible_all_ipv4_addresses}} --fsid 62d31c7d-780f-40c3-9180-dbe1f7c5d508 /tmp/monmap
 
 #10、创建一个默认的数据目录
 - name: make a data dir
