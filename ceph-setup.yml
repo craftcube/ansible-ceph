@@ -15,13 +15,18 @@
   roles:
     - 04-node-ntp-config
 
-- name: monitoring-node-config
-  hosts: mon
-  remote_user: root
-  roles:
-    - 05-ceph-monitor-config
+#- name: monitoring-node-config
+#  hosts: mon
+#  remote_user: root
+#  roles:
+#    - 05-ceph-monitor-config
+#
+#- name: osd-node-config
+#  hosts: osd
+#  roles:
+#    - 06-ceph-osd-config
 
-- name: osd-node-config
+- name: ceph-deploy
   hosts: osd
   roles:
-    - 06-ceph-osd-config
+    - 08-ceph-deploy

@@ -1,0 +1,45 @@
+---
+- name: create cluster folder
+  file:
+    path: ~/ceph
+    state: directory
+    mode: 0755
+
+#- name: install ceph on all nodes
+#  shell: ceph-deploy install "{{ item }}"
+#  with_items:
+#    - "admin"
+#    - "node1"
+#    - "node2"
+#    - "node3"
+#  args:
+#    chdir: ~/ceph
+
+- name: create new cluster
+  shell: ceph-deploy new "{{ item }}"
+  with_items: "{{groups['mon']}}"
+  args:
+    chdir: ~/ceph
+
+- name: deploy the monitor node
+  shell: ceph-deploy --overwrite-conf mon create-initial
+  args:
+    chdir: ~/ceph
+
+- name: copy configuration file and admin key
+  shell: ceph-deploy --overwrite-conf admin "{{ item }}"
+  with_items: "{{groups['mon']}}"
+  args:
+    chdir: ~/ceph
+
+- name: copy configuration file and admin key
+  shell: ceph-deploy mgr create "{{ item }}"
+  with_items: "{{groups['mon']}}"
+  args:
+    chdir: ~/ceph
+
+- name: add OSDs
+  shell: "ceph-deploy osd create {{ item }} --data /dev/sdb"
+  with_items: "{{groups['osd']}}"
+  args:
+    chdir: ~/ceph
