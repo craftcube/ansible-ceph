@@ -1,0 +1,19 @@
+- name: create ceph volume
+  shell: ceph-volume lvm create --data /dev/sdb
+
+- name: list ceph volume
+  shell: ceph-volume lvm list
+
+
+- name: Start ceph-osd service
+  systemd:
+    state: started
+    name: ceph-osd
+
+- name: enable ceph-osd service
+  systemd:
+    state: enabled
+    name: ceph-osd
+
+- name: list ceph volume
+  shell: ceph osd tree

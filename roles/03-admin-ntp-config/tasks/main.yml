@@ -1,0 +1,11 @@
+---
+- name: config /etc/ntp.conf
+  lineinfile:
+    path: /etc/ntp.conf
+    line: "server cn.ntp.org.cn iburst"
+    state: present
+
+- name: Make sure ntp service is running
+  systemd:
+    state: started
+    name: ntpd

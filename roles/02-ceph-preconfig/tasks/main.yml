@@ -27,7 +27,7 @@
     in_interface: ens33
     source: 192.168.2.0/24
     protocol: tcp
-    destination_port: 6789
+    destination_port: "6789"
     jump: ACCEPT
 
 - name: Set timezone to Asia/Shanghai
@@ -39,39 +39,17 @@
   args:
     creates: /root/.ssh/id_rsa
 
-#- name: Set authorized key taken from file
-#  authorized_key:
-#    remote_user: root
-#    state: present
-#    key: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
-#  with_items: "{{groups['all']}}"
+- name: Set authorized key taken from file
+  authorized_key:
+    remote_user: root
+    state: present
+    key: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
+  with_items: "{{groups['all']}}"
 
 #- name: run ssh-keyscan to add keys to known_hosts
 #  shell: "ssh-keyscan {{ item }} >> ~/.ssh/known_hosts"
 #  with_items: "{{groups['all']}}"
 
-- name: run ssh-copy-id
-  shell: "ssh-copy-id root@{{ item }} "
-  with_items: "{{groups['all']}}"
-
-- name: config /etc/ntp.conf
-  lineinfile:
-    path: /etc/ntp.conf
-    line: "server cn.ntp.org.cn iburst"
-    state: present
-  when: ansible_hostname != "{{ item }}" or ansible_hostname == "{{ item }}"
-  with_items: "{{groups['admin']}}"
-
-
-
-- name: config /etc/ntp.conf
-  copy:
-    src: ntp.conf
-    dest: /etc/ntp.conf
-    mode: 0644
-  with_items: "{{groups['osd']}}"
-
-- name: Make sure ntp service is running
-  systemd:
-    state: started
-    name: ntpd
+#- name: run ssh-copy-id
+#  shell: "ssh-copy-id root@{{ item }} "
+#  with_items: "{{groups['all']}}"

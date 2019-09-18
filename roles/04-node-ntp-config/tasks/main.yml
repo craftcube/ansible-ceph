@@ -1,0 +1,11 @@
+- name: config /etc/ntp.conf
+  copy:
+    src: ntp.conf
+    dest: /etc/ntp.conf
+    mode: 0644
+  with_items: "{{groups['osd']}}"
+
+- name: Make sure ntp service is running
+  systemd:
+    state: started
+    name: ntpd

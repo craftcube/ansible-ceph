@@ -5,5 +5,24 @@
     - 01-install-packages
     - 02-ceph-preconfig
 
+- name: admin-ntp-config
+  hosts: admin
+  roles:
+    - 03-admin-ntp-config
 
+- name: osd-ntp-config
+  hosts: osd
+  roles:
+    - 04-node-ntp-config
 
+- name: monitoring-node-config
+  hosts: mon
+  remote_user: root
+
+  roles:
+    - 05-ceph-monitor-config
+
+- name: osd-node-config
+  hosts: mon
+  roles:
+    - 06-ceph-osd-config
