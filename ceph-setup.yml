@@ -1,7 +1,6 @@
 ---
 - name: install
   hosts: all
-  remote_user: root
   roles:
     - 01-install-packages
     - 02-ceph-preconfig

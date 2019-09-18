@@ -41,7 +41,7 @@
 
 - name: Set authorized key taken from file
   authorized_key:
-    remote_user: root
+    user: root
     state: present
     key: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
 #  with_items: "{{groups['all']}}"
