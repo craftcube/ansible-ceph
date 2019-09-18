@@ -34,8 +34,8 @@
 #*初始化完毕查看/var/lib/ceph/mon/ceph-node01下是否生成文件，如果没有生成则是文件夹权限问题，需要将文件夹属主改成ceph，以及ceph.mon.keyring属主问题。
 
 #13、为了防止重新被安装创建一个空的done文件
-- name: produce done file
-  shell: touch /var/lib/ceph/mon/ceph-{{inventory_hostname}}/done
+#- name: produce done file
+#  shell: touch /var/lib/ceph/mon/ceph-{{inventory_hostname}}/done
 
 #14、启动mon
 #systemctl start ceph-mon@node01
