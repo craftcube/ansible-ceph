@@ -1,42 +1,41 @@
 #5、为集群创建密钥环、并生成监视器密钥。
 - name: generate monitoring keys
-    shell: ceph-authtool --create-keyring /tmp/ceph.mon.keyring --gen-key -n mon. --cap mon 'allow *'
-
+  shell: ceph-authtool --create-keyring /tmp/ceph.mon.keyring --gen-key -n mon. --cap mon 'allow *'
 
 # 6、生成管理员密钥环，生成 client.admin 用户并加入密钥环。
 - name: generate client.admin  keys
-    shell: ceph-authtool --create-keyring /etc/ceph/ceph.client.admin.keyring --gen-key -n client.admin --cap mon 'allow *' --cap osd 'allow *' --cap mds 'allow *' --cap mgr 'allow *'
+  shell: ceph-authtool --create-keyring /etc/ceph/ceph.client.admin.keyring --gen-key -n client.admin --cap mon 'allow *' --cap osd 'allow *' --cap mds 'allow *' --cap mgr 'allow *'
 
 # 7、生成一个引导-osd密钥环，生成一个client.bootstrap-osd用户并将用户添加到密钥环中
 - name: generate bootstrap-osd key
-    shell: ceph-authtool --create-keyring /var/lib/ceph/bootstrap-osd/ceph.keyring --gen-key -n client.bootstrap-osd --cap mon 'profile bootstrap-osd'
+  shell: ceph-authtool --create-keyring /var/lib/ceph/bootstrap-osd/ceph.keyring --gen-key -n client.bootstrap-osd --cap mon 'profile bootstrap-osd'
 
 # 8、将生成的密钥添加到ceph.mon.keyring
 - name: put keys into ceph.mon.keyring 1
-    shell: ceph-authtool /tmp/ceph.mon.keyring --import-keyring /etc/ceph/ceph.client.admin.keyring
+  shell: ceph-authtool /tmp/ceph.mon.keyring --import-keyring /etc/ceph/ceph.client.admin.keyring
 
 - name: put keys into ceph.mon.keyring 2
-    shell: ceph-authtool /tmp/ceph.mon.keyring --import-keyring /var/lib/ceph/bootstrap-osd/ceph.keyring
+  shell: ceph-authtool /tmp/ceph.mon.keyring --import-keyring /var/lib/ceph/bootstrap-osd/ceph.keyring
 
 #9、使用主机名、主机IP地址(ES)和FSID生成monmap。把它保存成/tmp/monmap
 - name: generate monmap
-    shell: monmaptool --create --add {{inventory_hostname}} {{ansible_all_ipv4_addresses}} --fsid 62d31c7d-780f-40c3-9180-dbe1f7c5d508 /tmp/monmap
+  shell: monmaptool --create --add {{inventory_hostname}} {{ansible_all_ipv4_addresses}} --fsid 62d31c7d-780f-40c3-9180-dbe1f7c5d508 /tmp/monmap
 
 #10、创建一个默认的数据目录
 - name: make a data dir
-    shell: mkdir /var/lib/ceph/mon/ceph-node01
+  shell: mkdir /var/lib/ceph/mon/ceph-node01
 
 #    11、修改ceph.mon.keyring属主和属组为ceph
 #    chown ceph.ceph /tmp/ceph.mon.keyring
 
 # 12、初始化mon
 - name: initlize mon
-    shell: ceph-mon --mkfs -i {{inventory_hostname}} --monmap /tmp/monmap --keyring /tmp/ceph.mon.keyring
+  shell: ceph-mon --mkfs -i {{inventory_hostname}} --monmap /tmp/monmap --keyring /tmp/ceph.mon.keyring
 #*初始化完毕查看/var/lib/ceph/mon/ceph-node01下是否生成文件，如果没有生成则是文件夹权限问题，需要将文件夹属主改成ceph，以及ceph.mon.keyring属主问题。
 
 #13、为了防止重新被安装创建一个空的done文件
 - name: produce done file
-    shell: touch /var/lib/ceph/mon/ceph-node01/done
+  shell: touch /var/lib/ceph/mon/ceph-node01/done
 
 #14、启动mon
 #systemctl start ceph-mon@node01
@@ -53,4 +52,4 @@
 
 # 17、查看集群情况
 - name: produce done file
-    shell: ceph -s
+  shell: ceph -s
