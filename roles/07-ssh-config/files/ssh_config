@@ -1,0 +1,15 @@
+Host admin
+        Hostname admin
+        User root
+
+Host node1
+        Hostname node1
+        User root
+
+Host node2
+        Hostname node2
+        User root
+
+Host node3
+        Hostname node3
+        User root

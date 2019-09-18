@@ -25,6 +25,14 @@
 #  hosts: osd
 #  roles:
 #    - 06-ceph-osd-config
+- name: generate-ssh-key
+  hosts: admin
+  roles:
+    - 07-ssh-config
+- name: copy ssh key
+  hosts: osd
+  roles:
+    - 07-ssh-key-copy
 
 - name: ceph-deploy
   hosts: osd
