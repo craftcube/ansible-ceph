@@ -46,10 +46,14 @@
 
 #14、启动mon
 #systemctl start ceph-mon@node01
+- name: enable ceph-mon service
+  systemd:
+    enabled: yes
+    name: ceph-mon@{{inventory_hostname}}
+
 - name: Start ceph-mon service
   systemd:
     state: started
-    enabled: true
     name: ceph-mon@{{inventory_hostname}}
 
 # 17、查看集群情况
