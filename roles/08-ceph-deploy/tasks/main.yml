@@ -22,14 +22,14 @@
   with_items: "{{groups['mon']}}"
   args:
     chdir: ~/ceph
-
+#shell: ceph-deploy --overwrite-conf mon create-initial
 - name: deploy the monitor node
-  shell: ceph-deploy --overwrite-conf mon create-initial
+  shell: ceph-deploy  mon create-initial
   args:
     chdir: ~/ceph
 
 - name: copy configuration file and admin key
-  shell: ceph-deploy --overwrite-conf admin "{{ item }}"
+  shell: ceph-deploy  admin "{{ item }}"
   with_items: "{{groups['mon']}}"
   args:
     chdir: ~/ceph
