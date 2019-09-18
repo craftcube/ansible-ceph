@@ -1,6 +1,7 @@
 ---
 - name: install
   hosts: all
+  remote_user: root
   roles:
     - 01-install-packages
     - 02-ceph-preconfig
@@ -22,6 +23,6 @@
     - 05-ceph-monitor-config
 
 - name: osd-node-config
-  hosts: mon
+  hosts: osd
   roles:
     - 06-ceph-osd-config
