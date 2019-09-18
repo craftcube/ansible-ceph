@@ -35,19 +35,19 @@
 
 #13、为了防止重新被安装创建一个空的done文件
 - name: produce done file
-  shell: touch /var/lib/ceph/mon/ceph-node01/done
+  shell: touch /var/lib/ceph/mon/ceph-{{inventory_hostname}}/done
 
 #14、启动mon
 #systemctl start ceph-mon@node01
 - name: Start ceph-mon service
   systemd:
     state: started
-    name: ceph-mon
+    name: ceph-mon@{{inventory_hostname}}
 
 - name: enable ceph-mon service
   systemd:
     state: enabled
-    name: ceph-mon
+    name: ceph-mon@{{inventory_hostname}}
 
 
 # 17、查看集群情况
