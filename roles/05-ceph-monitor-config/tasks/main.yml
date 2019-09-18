@@ -25,6 +25,7 @@
 - name: make a data dir
   file:
     path: /var/lib/ceph/mon/ceph-{{inventory_hostname}}
+    state: directory
     owner: root
     group: root
     mode: '0644'
