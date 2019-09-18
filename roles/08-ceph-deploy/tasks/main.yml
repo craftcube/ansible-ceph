@@ -5,18 +5,14 @@
     state: directory
     mode: 0755
 
-#- name: install ceph on all nodes
-#  shell: ceph-deploy install "{{ item }}"
-#  with_items:
-#    - "admin"
-#    - "node1"
-#    - "node2"
-#    - "node3"
-#  args:
-#    chdir: ~/ceph
+- name: install ceph on all nodes
+  shell: ceph-deploy install "{{ item }}"
+  with_items: "{{groups['mon']}}"
+  args:
+    chdir: ~/ceph
 
 - name: create new cluster
-  shell: ceph-deploy new "{{ item }}"
+  shell: ceph-deploy new node1 node2 node3
   with_items: "{{groups['mon']}}"
   args:
     chdir: ~/ceph

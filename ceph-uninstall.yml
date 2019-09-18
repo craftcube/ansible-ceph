@@ -1,3 +1,6 @@
 ---
 
 - name: uninstall ceph
+  hosts: admin
+  roles:
+    - 31-remove-ceph
