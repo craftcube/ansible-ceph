@@ -57,5 +57,5 @@
     name: ceph-mon@{{inventory_hostname}}
 
 # 17、查看集群情况
-- name: produce done file
-  shell: ceph -s
+#- name: check status with ceph -s
+#  shell: ceph -s
