@@ -35,7 +35,7 @@
     - 07-ssh-key-copy
 
 - name: ceph-deploy
-  hosts: admin
+  hosts: osd
   roles:
     - 08-ceph-deploy
     - 09-cephfs-mount
