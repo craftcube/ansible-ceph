@@ -1,0 +1,5 @@
+cephfs_endpoint: node1:6789:/
+cephfs_mountpoint: /mnt/cephfs
+cephfs_user: admin
+cephfs_secret: o9238jf9ajsdfje3jf9je==
+cephfs_secret_file_prefix: node1

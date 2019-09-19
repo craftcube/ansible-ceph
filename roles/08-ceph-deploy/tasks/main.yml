@@ -45,3 +45,9 @@
   with_items: "{{groups['osd']}}"
   args:
     chdir: ~/ceph
+
+- name: add metadata server
+  shell: "ceph-deploy mds create {{ item }} "
+  with_items: "{{groups['osd']}}"
+  args:
+    chdir: ~/ceph

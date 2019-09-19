@@ -38,3 +38,4 @@
   hosts: admin
   roles:
     - 08-ceph-deploy
+    - 09-cephfs-mount
