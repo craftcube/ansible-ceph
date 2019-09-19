@@ -21,6 +21,7 @@
   shell: ceph-deploy forgetkeys
   args:
     chdir: ~/cluster
+
 - name: remove ceph related files
   file:
     path: "{{item}}"
