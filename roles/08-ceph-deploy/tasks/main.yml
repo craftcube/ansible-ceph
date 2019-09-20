@@ -16,12 +16,12 @@
 #  with_items: "{{groups['mon']}}"
 #  args:
 #    chdir: ~/ceph
-#
+
 - name: create new cluster
-  shell: ceph-deploy new {{ item }}
-  with_items: "{{groups['mon']}}"
+  shell: ceph-deploy new node1 node2 node3
   args:
     chdir: ~/ceph
+
 #shell: ceph-deploy --overwrite-conf mon create-initial
 - name: deploy the monitor node
   shell: ceph-deploy mon create-initial
