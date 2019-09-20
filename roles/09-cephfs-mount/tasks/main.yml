@@ -27,10 +27,10 @@
 #    - ceph-fuse
 #    - nfs-common
 
-- name: check if the cephfs is already mounted
-  shell: "mount | grep -q {{ cephfs_mountpoint }}"
-  register: _mount
-  ignore_errors: yes
+#- name: check if the cephfs is already mounted
+#  shell: "mount | grep -q {{ cephfs_mountpoint }}"
+#  register: _mount
+#  ignore_errors: yes
 
 #- name: mount cephfs by kernel
 #  shell: "mount.ceph {{ cephfs_endpoint }} {{ cephfs_mountpoint }} -o name={{ cephfs_user }},secretfile=/etc/ceph/{{ cephfs_secret_file_prefix }}.{{ cephfs_user }}.secret"
@@ -44,9 +44,17 @@
     - _mount.rc == 1
     - ansible_kernel | match('^4.*')
 
-- name: add cephfs mount options to fstab
-  lineinfile:
-    dest: /etc/fstab
-    regexp: "^{{ cephfs_endpoint }}"
-    line: "{{ cephfs_endpoint }} {{ cephfs_mountpoint }} ceph name={{ cephfs_user }},secretfile=/etc/ceph/{{ cephfs_secret_file_prefix }}.{{ cephfs_user }}.secret,noatime,_netdev,defaults 0 2"
-  when: ansible_kernel | match('^4.*')
+- name: mount cephfs
+  mount:
+    path: {{ cephfs_mountpoint }}
+    src: {{ cephfs_endpoint }}
+    fstype: ceph
+    opts: name={{ cephfs_user }},secretfile=/etc/ceph/{{ cephfs_secret_file_prefix }}.{{ cephfs_user }}.secret
+    state: mounted
+
+#- name: add cephfs mount options to fstab
+#  lineinfile:
+#    dest: /etc/fstab
+#    regexp: "^{{ cephfs_endpoint }}"
+#    line: "{{ cephfs_endpoint }} {{ cephfs_mountpoint }} ceph name={{ cephfs_user }},secretfile=/etc/ceph/{{ cephfs_secret_file_prefix }}.{{ cephfs_user }}.secret,noatime,_netdev,defaults 0 2"
+#  when: ansible_kernel | match('^4.*')
