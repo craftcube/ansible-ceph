@@ -1,0 +1,4 @@
+- name: cephfs-mount
+  hosts: osd
+  roles:
+    - 09-cephfs-mount
