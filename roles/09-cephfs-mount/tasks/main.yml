@@ -46,10 +46,10 @@
 
 - name: mount cephfs
   mount:
-    path: {{ cephfs_mountpoint }}
-    src: {{ cephfs_endpoint }}
+    path: "{{ cephfs_mountpoint }}"
+    src: "{{ cephfs_endpoint }}"
     fstype: ceph
-    opts: name={{ cephfs_user }},secretfile=/etc/ceph/{{ cephfs_secret_file_prefix }}.{{ cephfs_user }}.secret
+    opts: "name={{ cephfs_user }},secretfile=/etc/ceph/{{ cephfs_secret_file_prefix }}.{{ cephfs_user }}.secret"
     state: mounted
 
 #- name: add cephfs mount options to fstab
