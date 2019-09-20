@@ -38,11 +38,11 @@
 #    - _mount.rc == 1
 #    - ansible_kernel | match('^4.*')
 
-- name: mount cephfs by kernel
-  shell: "mount -t ceph {{ cephfs_endpoint }} {{ cephfs_mountpoint }} -o name={{ cephfs_user }},secretfile=/etc/ceph/{{ cephfs_secret_file_prefix }}.{{ cephfs_user }}.secret"
-  when:
-    - _mount.rc == 1
-    - ansible_kernel | match('^4.*')
+#- name: mount cephfs by kernel
+#  shell: "mount -t ceph {{ cephfs_endpoint }} {{ cephfs_mountpoint }} -o name={{ cephfs_user }},secretfile=/etc/ceph/{{ cephfs_secret_file_prefix }}.{{ cephfs_user }}.secret"
+#  when:
+#    - _mount.rc == 1
+#    - ansible_kernel | match('^4.*')
 
 - name: mount cephfs
   mount:
