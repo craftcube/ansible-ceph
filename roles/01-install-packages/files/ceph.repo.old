@@ -1,0 +1,8 @@
+[Ceph]
+name=Ceph packages for $basearch
+baseurl=http://admin:8888/
+enabled=1
+gpgcheck=0
+type=rpm-md
+#gpgkey=https://download.ceph.com/keys/release.asc
+priority=1
