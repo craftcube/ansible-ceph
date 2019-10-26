@@ -9,6 +9,12 @@
   command: firewall-cmd --zone=public --add-service=ceph --permanent
 - name: "setup firewall for public-zone"
   command: firewall-cmd --permanent --zone=public --add-rich-rule='rule family=ipv4 source address=192.168.2.0/24 accept'
+- name: "setup firewall for port 6789"
+  command: firewall-cmd --permanent --add-port=6789/tcp
+- name: "setup firewall for port 6800-7300"
+  command: firewall-cmd --permanent --add-port=6800-7300/tcp
+- name: "setup firewall for port 7480"
+  command: firewall-cmd --permanent --add-port=7480/tcp
 - name: "reload firewall settings"
   command: firewall-cmd --reload
 
